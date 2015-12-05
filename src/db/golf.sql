@@ -1,4 +1,4 @@
-
+another etst
 CREATE TABLE User (
 	id				INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	firstname	VARCHAR(20)	NOT NULL,
