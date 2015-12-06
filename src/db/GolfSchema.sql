@@ -27,25 +27,22 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(128) NOT NULL,
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(25) NOT NULL,
-  `email` varchar(128) NOT NULL,
   `phoneNumber` varchar(15) DEFAULT NULL,
   `streetNumber` varchar(10) DEFAULT NULL,
   `address1` varchar(45) DEFAULT NULL,
   `address2` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `postalCode` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_email_UNIQUE` (`email`)
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `GolfCourse` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
   `phoneNumber` varchar(15) DEFAULT NULL,
@@ -54,44 +51,27 @@ CREATE TABLE `GolfCourse` (
   `address2` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `postalCode` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `golf_course_email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `GolfCourseRating`
---
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `GolfCourseRating` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `golfCourseId` int(11) NOT NULL,
-  `teeBlock` varchar(45) NOT NULL,
   `rating` decimal(3,1) NOT NULL,
   `slope` smallint(6) NOT NULL,
-  PRIMARY KEY (`golfCourseId`,`teeBlock`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  CONSTRAINT `golf_course_idx` FOREIGN KEY (`id`) REFERENCES `GolfCourse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `Score`
 --
-
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Score` (
-  `userId` int(11) NOT NULL,
-  `golfCourseRatingId` int(11) NOT NULL,
+  `userEmail` varchar(128) NOT NULL,
+  `courseName` varchar(128) NOT NULL,
   `datePlayed` date NOT NULL,
   `rawScore` smallint(6) NOT NULL,
   `netScore` smallint(6) NOT NULL,
-  PRIMARY KEY (`userId`,`golfCourseRatingId`,`datePlayed`),
-  KEY `golf_course_rating_idx_idx` (`golfCourseRatingId`),
-  CONSTRAINT `golf_course_rating_idx` FOREIGN KEY (`golfCourseRatingId`) REFERENCES `GolfCourseRating` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_idx` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `handicap` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`userEmail`,`courseName`,`datePlayed`),
+  CONSTRAINT `golf_course_name_idx` FOREIGN KEY (`courseName`) REFERENCES `GolfCourse` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_idx` FOREIGN KEY (`userEmail`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
