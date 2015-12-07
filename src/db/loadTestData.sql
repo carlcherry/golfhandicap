@@ -9,7 +9,7 @@ INSERT INTO GolfCourse (name,rating,slope) VALUES ('Grey Silo', 68.9, 126);
 INSERT INTO GolfCourse (name,rating,slope) VALUES ('Conestoga', 67.2, 117);
 
 /* Add a couple of scores */
-INSERT INTO Score (userEmail,courseName,datePlayed,rawScore,netScore,handicap)
-VALUES('andrewcherry.v@gmail.com','Grey Silo','2015-05-03',83,83,18.0);
-INSERT INTO Score (userEmail,courseName,datePlayed,rawScore,netScore,handicap)
-VALUES('andrewcherry.v@gmail.com','Conestoga','2015-05-05',83,83,18.0);
+INSERT INTO Score (idUser,idGolfCourse,datePlayed,rawScore,netScore,handicap)
+VALUES(1,1,'2015-05-03',83,83,18.0);
+INSERT INTO Score (idUser,idGolfCourse,datePlayed,rawScore,netScore,handicap)
+VALUES(1,2,'2015-05-05',83,83,18.0);

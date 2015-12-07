@@ -26,7 +26,11 @@ DROP TABLE IF EXISTS `User`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(128) NOT NULL,
   `firstName` varchar(20) NOT NULL,
   `lastName` varchar(25) NOT NULL,
@@ -36,13 +40,14 @@ CREATE TABLE `User` (
   `address2` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
   `postalCode` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`email`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `GolfCourse` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
   `phoneNumber` varchar(15) DEFAULT NULL,
@@ -53,7 +58,7 @@ CREATE TABLE `GolfCourse` (
   `postalCode` varchar(12) DEFAULT NULL,
   `rating` decimal(3,1) NOT NULL,
   `slope` smallint(6) NOT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,17 +68,17 @@ CREATE TABLE `GolfCourse` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Score` (
-  `userEmail` varchar(128) NOT NULL,
-  `courseName` varchar(128) NOT NULL,
-  `datePlayed` date NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) DEFAULT NULL,
+  `idGolfCourse` int(11) DEFAULT NULL,
+  `datePlayed` date DEFAULT NULL,
   `rawScore` smallint(6) NOT NULL,
   `netScore` smallint(6) NOT NULL,
   `handicap` decimal(4,2) NOT NULL,
-  PRIMARY KEY (`userEmail`,`courseName`,`datePlayed`),
-  CONSTRAINT `golf_course_name_idx` FOREIGN KEY (`courseName`) REFERENCES `GolfCourse` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_idx` FOREIGN KEY (`userEmail`) REFERENCES `User` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping routines for database 'Golf'
